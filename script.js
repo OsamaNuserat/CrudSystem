@@ -7,10 +7,20 @@ var btn = document.getElementById("click");
 var tbody = document.getElementById("data");
 var deleteBtn = document.getElementById("deleteBtn");
 var search = document.getElementById("search");
+var currentIndex = 0;
 var array=[];
 
 btn.onclick = function(e) {
     e.preventDefault();
+   if(btn.value =="Add Course")
+   {
+    addCourse();
+   }
+   else
+   update();
+    
+}
+function addCourse() {
     var course = {
         courseName :courseName.value,
         courseCategory : courseCategory.value,
@@ -49,11 +59,12 @@ for(var i=0; i<array.length ;i++){
     <td>${array[i].courseDescription}</td>
     <td>${array[i].courseCapacity}</td>
     <td><button class="btn btn-danger" onclick="deleteCourse(${i})">delete</button></td>
-    <td><button class="btn btn-info" onclick="updateCourse">update</button></td>
+    <td><button class="btn btn-info" onclick="updateCourse(${i})">update</button></td>
 </tr>
 `
 }
 tbody.innerHTML=data;
+
 }
 
 function deleteCourse(index){
@@ -117,11 +128,41 @@ for(var i=0; i<array.length ;i++){
         <td>${array[i].courseDescription}</td>
         <td>${array[i].courseCapacity}</td>
         <td><button class="btn btn-danger" onclick="deleteCourse(${i})">delete</button></td>
-        <td><button class="btn btn-info" onclick="updateCourse">update</button></td>
+        <td><button class="btn btn-info" onclick="updateCourse(${i})">update</button></td>
     </tr>
     `
     }
     
     }
     tbody.innerHTML=data;
+}
+
+function updateCourse(index) {
+var course = array[index]
+    courseName.value =course.courseName;
+    courseCategory.value=course.courseCategory;
+    coursePrice.value=course.coursePrice;
+    courseDescription.value =course.courseDescription;
+    courseCapacity.value=course.courseCapacity;
+    btn.value= "update";
+    currentIndex = index
+
+}
+function update(){
+    var course = {
+        courseName :courseName.value,
+        courseCategory : courseCategory.value,
+        coursePrice : coursePrice.value,
+        courseDescription : courseDescription.value,
+        courseCapacity : courseCapacity.value
+    }
+array[currentIndex].courseName = course.courseName;
+array[currentIndex].courseCategory = course.courseCategory;
+array[currentIndex].coursePrice = course.coursePrice;
+array[currentIndex].courseDescription = course.courseDescription;
+array[currentIndex]. courseCapacity = course. courseCapacity;
+
+displayData();
+clearData();
+btn.value = "Add Course"
 }
