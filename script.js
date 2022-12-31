@@ -106,7 +106,7 @@ deleteBtn.onclick = function(){
             tbody.innerHTML="";
           Swal.fire(
             'Deleted!',
-            'Your file has been deleted.',
+            'All courses has been deleted',
             'success'
           )
         }
@@ -148,7 +148,9 @@ var course = array[index]
     currentIndex = index
 
 }
+
 function update(){
+    var namee = array[currentIndex].courseName;
     var course = {
         courseName :courseName.value,
         courseCategory : courseCategory.value,
@@ -163,6 +165,13 @@ array[currentIndex].courseDescription = course.courseDescription;
 array[currentIndex]. courseCapacity = course. courseCapacity;
 
 displayData();
+Swal.fire({
+    position: 'center',
+    icon: 'success',
+    title: `${namee} has been updated successfully`,
+    showConfirmButton: false,
+    timer: 1300
+  })
 clearData();
 btn.value = "Add Course"
 }
